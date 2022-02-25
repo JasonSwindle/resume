@@ -23,6 +23,9 @@ jobs:
       - name: Confirm PDF is there
         run: test -f ${{ secrets.RESUME_FILE_NAME }}
 
+      - name: Confirm PDF is there
+        run: ls -hal && pwd
+
       - name: Add to Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -30,11 +33,11 @@ jobs:
           files: |
             ${{ secrets.RESUME_FILE_NAME }}
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: . # The folder the action should deploy.
+#       - name: Deploy 🚀
+#         uses: JamesIves/github-pages-deploy-action@v4.2.5
+#         with:
+#           branch: gh-pages # The branch the action should deploy to.
+#           folder: . # The folder the action should deploy.
 
 #       - name: Configure AWS credentials
 #         uses: aws-actions/configure-aws-credentials@v1
