@@ -21,7 +21,7 @@ jobs:
           post_compile: mkdir .github/build && mv resume.pdf .github/build/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Confirm PDF is there
-        run: test -f ${{ secrets.RESUME_FILE_NAME }}
+        run: test -f .github/build/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Add to Release
         uses: softprops/action-gh-release@v1
