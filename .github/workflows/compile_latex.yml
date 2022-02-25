@@ -40,4 +40,4 @@ jobs:
           folder: .github/build # The folder the action should deploy.
 
       - name: Clean-up build directory
-        run: rm --verbose --recursive --force  .github/build/
+        run: sudo rm --verbose --recursive --force .github/build/
