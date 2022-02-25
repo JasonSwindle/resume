@@ -18,13 +18,13 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: resume.tex
-          post_compile: mkdir .github/build && mv resume.pdf .github/build/${{ secrets.RESUME_FILE_NAME }}
+          post_compile: |
+            mkdir .github/build && \
+            mv resume.pdf .github/build/${{ secrets.RESUME_FILE_NAME }} && \
+            cp index.html .github/build/
 
       - name: Confirm PDF is there
         run: test -f .github/build/${{ secrets.RESUME_FILE_NAME }}
-
-      - name: Copy index to build directory
-        run: cp index.html .github/build/
 
       - name: Add to Release
         uses: softprops/action-gh-release@v1
