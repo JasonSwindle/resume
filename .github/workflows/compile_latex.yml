@@ -23,6 +23,9 @@ jobs:
       - name: Confirm PDF is there
         run: test -f .github/build/${{ secrets.RESUME_FILE_NAME }}
 
+      - name: Copy index to build directory
+        run: cp index.html .github/build/
+
       - name: Add to Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -35,3 +38,6 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: .github/build # The folder the action should deploy.
+
+      - name: Clean-up build directory
+        run: rm --verbose --recursive --force  .github/build/
