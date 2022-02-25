@@ -19,13 +19,10 @@ jobs:
         with:
           root_file: resume.tex
           working_directory: .github/build
-          post_compile: mv resume.pdf ${{ secrets.RESUME_FILE_NAME }}
+          post_compile: mkdir .github/build && mv resume.pdf .github/build/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Confirm PDF is there
         run: test -f ${{ secrets.RESUME_FILE_NAME }}
-
-      - name: Confirm PDF is there
-        run: ls -hal && pwd
 
       - name: Add to Release
         uses: softprops/action-gh-release@v1
@@ -34,23 +31,8 @@ jobs:
           files: |
             ${{ secrets.RESUME_FILE_NAME }}
 
-#       - name: Deploy 🚀
-#         uses: JamesIves/github-pages-deploy-action@v4.2.5
-#         with:
-#           branch: gh-pages # The branch the action should deploy to.
-#           folder: . # The folder the action should deploy.
-
-#       - name: Configure AWS credentials
-#         uses: aws-actions/configure-aws-credentials@v1
-#         with:
-#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: ${{ secrets.AWS_REGION }}
-
-#       - name: Upload resume to S3 bucket
-#         run: |
-#           aws s3 sync . s3://${{ secrets.AWS_BUCKET_NAME }} --storage-class STANDARD_IA --exclude "*" --include "${{ secrets.RESUME_FILE_NAME }}" --include "index.html"
-
-#       - name: Create CloudFront invalidation
-#         run: |
-#           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRO_ID }} --paths "/index.html" "/${{ secrets.RESUME_FILE_NAME }}"
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: .github/build # The folder the action should deploy.
