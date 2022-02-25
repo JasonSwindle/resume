@@ -18,7 +18,6 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: resume.tex
-          working_directory: .github/build
           post_compile: mkdir .github/build && mv resume.pdf .github/build/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Confirm PDF is there
