@@ -2,11 +2,11 @@ name: Build LaTeX document on push
 on:
   push:
     paths:
-      - '**.tex'
+      - "**.tex"
 
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:     
-      
+  workflow_dispatch:
+
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -25,6 +25,13 @@ jobs:
 
       - name: Confirm PDF is there
         run: test -f .github/build/${{ secrets.RESUME_FILE_NAME }}
+
+      - name: Upload Resume to Workflow artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Resume
+          path: .github/build/${{ secrets.RESUME_FILE_NAME }}
+          retention-days: 5
 
       - name: Clean-up build directory
         run: sudo rm --verbose --recursive --force .github/build/
