@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/papercss@1.8.3/dist/paper.min.css"
-      integrity="sha384-yFum6yOMslmxJhsY7jTO5W1V1uZyW1Fn7a5FnZHBPT3rHFCz8HgAH2eGvXGlzCmG"
-      crossorigin="anonymous"
-    />
-
     <script
       src="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.min.js"
       integrity="sha384-65iTo37wfrLRKqzxzNE2JZyourTpPCeCp287rLwEdmc3aefpKXhfFEr948Tiy/v+"
@@ -74,22 +67,13 @@
   <body>
     <!-- Source https://gist.github.com/fcingolani/3300351?permalink_comment_id=3669257#gistcomment-3669257 -->
 
-    <nav class="border fixed split-nav">
-      <div class="nav-brand">
-        <h3><a href="#">Jason Swindle's Resume</a></h3>
-      </div>
-      <div class="collapsible">
-        <!-- <input id="collapsible1" type="checkbox" name="collapsible1" />
-        <label for="collapsible1">
-          <div class="bar1"></div>
-        </label> -->
-        <div class="collapsible-body">
-          <ul class="inline">
-            <li><a href="Jason_Swindle_Resume.pdf">Download PDF</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <div style="width: 100%; text-align: center; padding-bottom: 1em">
+      <a
+        href="Jason_Swindle_Resume.pdf"
+        style="font-size: 1.5em; text-decoration: none"
+        >Download PDF</a
+      >
+    </div>
 
     <div id="my_canvas"></div>
   </body>
