@@ -1,24 +1,26 @@
-\usepackage[paper=a4paper,
-            top=30pt,
-            left=60pt,
-            right=60pt,
-            bottom=60pt,
-            nomarginpar,
-            nohead]
-            {geometry}
+\usepackage[
+    paper=a4paper,
+    top=30pt,
+    left=60pt,
+    right=60pt,
+    bottom=60pt,
+    nomarginpar,
+    nohead]{geometry}
 
-\usepackage{enumitem}
+\usepackage{
+    tabularx,
+    multirow,
+    enumitem,
+    titlesec,
+    xifthen,
+    array
+}
+
 \setlist[itemize]{
-        topsep=5pt,
-        parsep=0pt,
-        itemsep=6pt
-        }
-
-% Custom \section's
-\usepackage{titlesec}
-
-% IF-Then
-\usepackage{xifthen}
+    topsep=5pt,
+    parsep=0pt,
+    itemsep=6pt
+}
 
 % PDF Stuff
 \usepackage{pslatex}
@@ -26,23 +28,24 @@
 \pdfminorversion=5
 \pdfobjcompresslevel=2
 
-\usepackage[nodocdata=false,
-            noeditdata=true,
-            noproducerdata=true,
-            noptexdata=true,
-            nopdftrailerid=false]
-            {pdfprivacy}
+\usepackage[
+    nodocdata=false,
+    noeditdata=true,
+    noproducerdata=true,
+    noptexdata=true,
+    nopdftrailerid=false]{pdfprivacy}
 
 % Hyper Links
-\usepackage[pdftitle={\yourname - Resume},
-            pdfauthor={\yourname},
-            allcolors=black,
-            hidelinks]
-           {hyperref}
+\usepackage[
+    pdftitle={\yourname - Resume},
+    pdfauthor={\yourname},
+    allcolors=black,
+    hidelinks]{hyperref}
 
 % Roman numerals
-\newcommand{\RNum} [1]
-    {\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum} [1] {
+    \uppercase\expandafter{\romannumeral #1\relax}
+}
 
 % Ordinal numbers
 \usepackage[super]{nth}
@@ -71,86 +74,73 @@
 
 % Section formatting
 \titleformat{\section}{\scshape\raggedright}{}{-15pt}{}
-    [\vspace{-9pt}\hspace*{-15pt}\titlerule]
-    \titlespacing{\section}{0pt}{0pt}{1pt}
+[\vspace{-9pt}\hspace*{-15pt}\titlerule]
+\titlespacing{\section}{0pt}{0pt}{1pt}
 
 \newcommand{\roleheader} [5] {
-% \roleheader
-%     {Company Name}
-%     {Location}
-%     {Title}
-%     {Start Date in '2018-09-17' format}
-%     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
-    \textbf{#1}
-    \hfill{#2} \\
-    \textit{#3}
-    \ifthenelse{\isempty{#5}}
-        {\hfill{\printdate{#4} to Present}} 
-        {\hfill{\daterange{#4}{#5}}}
-    \\
+    % \roleheader
+    %     {Company Name}
+    %     {Location}
+    %     {Title}
+    %     {Start Date in '2018-09-17' format}
+    %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
+    \setlength\tabcolsep{0pt}
+    \begin{tabularx}{\textwidth}{X r}
+        \textbf{#1} & #2                                                                             \\
+        #3          & \ifthenelse{\isempty{#5}} {{\printdate{#4} to Present}} {{\daterange{#4}{#5}}}
+    \end{tabularx}
 }
 
 \newcommand{\projectitem} [3] {
-% \projectitem
-%     {Project Name}
-%     {URL}
-%     {Description}
-    \textbf{#1}
-    \hfill{#2} \\
-    \textit{#3}
-    \\[1\baselineskip]
+    % \projectitem
+    %     {Project Name}
+    %     {URL}
+    %     {Description}
+    \setlength{\tabcolsep}{0pt}
+    \begin{tabularx}{\textwidth}{ X r }
+        \textbf{#1} & #2 \\
+        \multicolumn{2}{ p{\textwidth}} {#3}
+    \end{tabularx} \\[5pt]
 }
 
 \newcommand{\educationitem} [5] {
-% \educationitem
-%     {University Name}
-%     {Location}
-%     {Degree}
-%     {Start Date in '2018-09-17' format}
-%     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
-    \textbf{#1}
-    \hfill{#2} \\
-    #3
-    \ifthenelse{\isempty{#5}}
-        {\hfill{\printdate{#4} to Present}}
-        {\hfill{\daterange{#4}{#5}}}
-    \\[1\baselineskip]
+    % \educationitem
+    %     {University Name}
+    %     {Location}
+    %     {Degree}
+    %     {Start Date in '2018-09-17' format}
+    %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
+    \setlength\tabcolsep{0pt}
+    \begin{tabularx}{\textwidth}{X r}
+        \textbf{#1} & #2                                                                             \\
+        #3          & \ifthenelse{\isempty{#5}} {{\printdate{#4} to Present}} {{\daterange{#4}{#5}}}
+    \end{tabularx}
 }
 
 \newcommand{\profile} [5] {
-% \profile
-%     {Name}
-%     {Email Address}
-%     {Two digit Country Code}
-%     {Phone Number}
-%     {website, if left blank, it will be omitted}
-    \vspace*{-10pt}
-    \setphonenumbers{foreign, foreign-area-code-sep=brackets}
-    \begin{center}
-        {\Huge \scshape {#1}}
-        \\[1\baselineskip]
-        \ifthenelse{\isempty{#2}}
-            {}
-            {\href{mailto:#2}{#2}}
-        \ifthenelse{\isempty{#4}}
-            {}
-            {$\cdot$ \phonenumber[country=#3]{#4}}
-        \ifthenelse{\isempty{#5}}
-            {}
-            {$\cdot$ #5}
-    \end{center}
+    % \profile
+    %     {Name}
+    %     {Email Address}
+    %     {Two digit Country Code}
+    %     {Phone Number}
+    %     {website, if left blank, it will be omitted}
+    \centering
+    \begin{tabular}{ccc}
+        \multicolumn{3}{c}{\Huge \scshape {#1}}                        \\ \\
+        {\href{mailto:#2}{#2}} & {\phonenumber[country=#3]{#4}} & {#5} \\
+    \end{tabular}
 }
 
 \newcommand{\awarditem} [4] {
-%% Usage of \awarditem
-% \awarditem
-%     {Award}
-%     {Award Provider}
-%     {Description}
-%     {Date in '2018-09-17' format}
-    \textbf{#1}
-    \hfill{#2} \\
-    #3
-    \hfill{\printdate{#4}}
-    \\[1\baselineskip]
+    %% Usage of \awarditem
+    % \awarditem
+    %     {Award}
+    %     {Award Provider}
+    %     {Description}
+    %     {Date in '2018-09-17' format}
+    \setlength\tabcolsep{0pt}
+    \begin{tabularx}{\textwidth}{X r}
+        \textbf{#1} & #2             \\
+        #3          & \printdate{#4}
+    \end{tabularx} \\[5pt]
 }
