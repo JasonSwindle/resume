@@ -1,4 +1,3 @@
-*.bak
 .DS_Store
 resume.pdf
 *.gz
@@ -8,3 +7,4 @@ resume.pdf
 *.fls
 *.log
 *.out
+*.bak

@@ -1,9 +1,6 @@
 \usepackage[
     paper=a4paper,
-    top=30pt,
-    left=60pt,
-    right=60pt,
-    bottom=60pt,
+    margin=50pt,
     nomarginpar,
     nohead]{geometry}
 
@@ -13,7 +10,7 @@
     enumitem,
     titlesec,
     xifthen,
-    array
+    hyperref
 }
 
 \setlist[itemize]{
@@ -24,23 +21,26 @@
 
 % PDF Stuff
 \usepackage{pslatex}
-\pdfcompresslevel=9
-\pdfminorversion=5
+\pdfmajorversion=2
+\pdfminorversion=0
 \pdfobjcompresslevel=2
+\pdfinclusionerrorlevel=1
 
-\usepackage[
-    nodocdata=false,
-    noeditdata=true,
-    noproducerdata=true,
-    noptexdata=true,
-    nopdftrailerid=false]{pdfprivacy}
-
-% Hyper Links
-\usepackage[
+\hypersetup{
+    pdfauthor={\yourname},%
     pdftitle={\yourname - Resume},
-    pdfauthor={\yourname},
+    pdfsubject={Resume},
+    pdfkeywords={Resune, AWS, GCP, Google, DevOps, TAM},
+    pdfproducer={LaTeX},
+    pdfcreator={pdfLaTeX},
+    % pdfcreationdate={\today},
     allcolors=black,
-    hidelinks]{hyperref}
+    hidelinks
+}
+
+\usepackage[
+    noeditdata=true,
+    noproducerdata=false]{pdfprivacy}
 
 % Roman numerals
 \newcommand{\RNum} [1] {
@@ -126,8 +126,8 @@
     %     {website, if left blank, it will be omitted}
     \centering
     \begin{tabular}{ccc}
-        \multicolumn{3}{c}{\Huge \scshape {#1}}                        \\ \\
-        {\href{mailto:#2}{#2}} & {\phonenumber[country=#3]{#4}} & {#5} \\
+        \multicolumn{3}{c}{\Huge \scshape {#1}}                                  \\ \\
+        {\href{mailto:#2}{#2}} & {\phonenumber[country={#3},foreign]{#4}} & {#5} \\[5pt]
     \end{tabular}
 }
 
