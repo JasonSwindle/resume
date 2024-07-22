@@ -1,10 +1,13 @@
-.DS_Store
-resume.pdf
-*.gz
-*.dvi
-*.aux
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.bak
+# Ignore everything
+*
+
+# Don't ignore directories
+!*/
+
+# Only allow the following
+!.tex
+!.md
+!.code-workspace
+!.pws
+!.yml
+!.yaml
