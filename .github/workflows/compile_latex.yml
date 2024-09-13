@@ -27,7 +27,7 @@ jobs:
         run: test -f .github/build/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Upload Resume to Workflow artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Resume
           path: .github/build/${{ secrets.RESUME_FILE_NAME }}
