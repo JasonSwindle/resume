@@ -11,3 +11,15 @@
 !.pws
 !.yml
 !.yaml
+!*.html
+!*.css
+!*.js
+!*.mjs
+!*.json
+!*.ftl
+!*.svg
+!*.png
+!*.gif
+!*.pfb
+!*.ttf
+!*.bcmap

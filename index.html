@@ -4,76 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
-    <script
-      src="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.min.js"
-      integrity="sha384-65iTo37wfrLRKqzxzNE2JZyourTpPCeCp287rLwEdmc3aefpKXhfFEr948Tiy/v+"
-      crossorigin="anonymous"
-    ></script>
-
     <title>Jason Swindle's Resume</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      iframe {
+        flex-grow: 1;
+        border: none;
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
-    <!-- Source https://gist.github.com/fcingolani/3300351?permalink_comment_id=3669257#gistcomment-3669257 -->
-
-    <div style="width: 100%; text-align: center; padding-bottom: 1em">
+    <div style="text-align: center; padding: 0.5em 0;">
       <a
         href="Jason_Swindle_Resume.pdf"
         style="font-size: 1.5em; text-decoration: none"
         >Download PDF</a
       >
     </div>
-    <div id="my_canvas"></div>
-
-    <script>
-      function renderPDF(url, canvasContainer) {
-        function renderPage(page) {
-          let viewport = page.getViewport({ scale: 0.5 });
-          const DPI = 72;
-          const PRINT_OUTPUT_SCALE = DPI / 72;
-          const scale = canvasContainer.clientWidth / viewport.width;
-          const canvas = document.createElement("canvas");
-
-          const ctx = canvas.getContext("2d");
-          viewport = page.getViewport({ scale });
-
-          canvas.width = Math.floor(viewport.width * PRINT_OUTPUT_SCALE);
-          canvas.height = Math.floor(viewport.height * PRINT_OUTPUT_SCALE);
-          canvas.style.width = "100%";
-
-          canvas.style.transform = "scale(1,1)";
-          canvas.style.transformOrigin = "0% 0%";
-
-          const canvasWrapper = document.createElement("div");
-
-          canvasWrapper.style.width = "100%";
-          canvasWrapper.style.height = "100%";
-
-          canvasWrapper.appendChild(canvas);
-
-          const renderContext = {
-            canvasContext: ctx,
-            viewport,
-          };
-
-          canvasContainer.appendChild(canvasWrapper);
-
-          page.render(renderContext);
-        }
-
-        function renderPages(pdfDoc) {
-          for (let num = 1; num <= pdfDoc.numPages; num += 1)
-            pdfDoc.getPage(num).then(renderPage);
-        }
-
-        pdfjsLib.disableWorker = true;
-        pdfjsLib.getDocument(url).promise.then(renderPages);
-      }
-
-      renderPDF(
-        "Jason_Swindle_Resume.pdf",
-        document.getElementById("my_canvas")
-      ); //div element
-    </script>
+    <iframe
+      src="web/viewer.html?file=/Jason_Swindle_Resume.pdf"
+    ></iframe>
   </body>
 </html>
