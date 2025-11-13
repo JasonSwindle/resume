@@ -1,16 +1,19 @@
+% The `geometry` package is used to set the margins and page layout.
 \usepackage[
-    paper=a4paper,
-    margin=50pt,
-    nomarginpar,
-    nohead]{geometry}
+    paper=a4paper, % Sets the paper size to A4.
+    margin=50pt, % Sets the margin to 50pt on all sides.
+    nomarginpar, % Disables margin paragraphs.
+    nohead % Disables the header.
+]{geometry}
 
+% The following packages are used for various formatting purposes.
 \usepackage{
-    tabularx,
-    multirow,
-    enumitem,
-    titlesec,
-    xifthen,
-    hyperref
+    tabularx, % Advanced table formatting.
+    multirow, % For table cells that span multiple rows.
+    enumitem, % For customizing lists.
+    titlesec, % For customizing section titles.
+    xifthen, % For conditional commands.
+    hyperref % For creating hyperlinks in the document.
 }
 
 \setlist[itemize]{
@@ -30,12 +33,13 @@
     pdfauthor={\yourname},%
     pdftitle={\yourname - Resume},
     pdfsubject={Resume},
-    pdfkeywords={Resune, AWS, GCP, Google, DevOps, TAM},
+    pdfkeywords={Resume, AWS, GCP, Google, DevOps, TAM},
     pdfproducer={LaTeX},
     pdfcreator={pdfLaTeX},
     % pdfcreationdate={\today},
     allcolors=black,
-    hidelinks
+    hidelinks,
+    bookmarks=true
 }
 
 \usepackage[
@@ -77,70 +81,74 @@
 [\vspace{-9pt}\hspace*{-15pt}\titlerule]
 \titlespacing{\section}{0pt}{0pt}{1pt}
 
-\newcommand{\roleheader} [5] {
-    % \roleheader
-    %     {Company Name}
-    %     {Location}
-    %     {Title}
-    %     {Start Date in '2018-09-17' format}
-    %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
+% The `\roleheader` command is used to create a header for a role in the experience section.
+% It takes five arguments:
+%   #1: Company Name
+%   #2: Location
+%   #3: Title
+%   #4: Start Date in 'YYYY-MM-DD' format
+%   #5: End Date in 'YYYY-MM-DD' format. If left blank, it will print 'Present'.
+\newcommand{\roleheader}[5]{
     \setlength\tabcolsep{0pt}
     \begin{tabularx}{\textwidth}{X r}
-        \textbf{#1} & #2                                                                             \\
-        #3          & \ifthenelse{\isempty{#5}} {{\printdate{#4} to Present}} {{\daterange{#4}{#5}}}
+        \textbf{#1} & #2 \\
+        #3 & \ifthenelse{\isempty{#5}}{\printdate{#4} to Present}{\daterange{#4}{#5}}
     \end{tabularx}
 }
 
-\newcommand{\projectitem} [3] {
-    % \projectitem
-    %     {Project Name}
-    %     {URL}
-    %     {Description}
+% The `\projectitem` command is used to create a project item in the projects section.
+% It takes three arguments:
+%   #1: Project Name
+%   #2: URL
+%   #3: Description
+\newcommand{\projectitem}[3]{
     \setlength{\tabcolsep}{0pt}
     \begin{tabularx}{\textwidth}{ X r }
         \textbf{#1} & #2 \\
-        \multicolumn{2}{ p{\textwidth}} {#3}
+        \multicolumn{2}{ p{\textwidth} }{#3}
     \end{tabularx} \\[5pt]
 }
 
-\newcommand{\educationitem} [5] {
-    % \educationitem
-    %     {University Name}
-    %     {Location}
-    %     {Degree}
-    %     {Start Date in '2018-09-17' format}
-    %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
+% The `\educationitem` command is used to create an education item in the education section.
+% It takes five arguments:
+%   #1: University Name
+%   #2: Location
+%   #3: Degree
+%   #4: Start Date in 'YYYY-MM-DD' format
+%   #5: End Date in 'YYYY-MM-DD' format. If left blank, it will print 'Present'.
+\newcommand{\educationitem}[5]{
     \setlength\tabcolsep{0pt}
     \begin{tabularx}{\textwidth}{X r}
-        \textbf{#1} & #2                                                                             \\
-        #3          & \ifthenelse{\isempty{#5}} {{\printdate{#4} to Present}} {{\daterange{#4}{#5}}}
+        \textbf{#1} & #2 \\
+        #3 & \ifthenelse{\isempty{#5}}{\printdate{#4} to Present}{\daterange{#4}{#5}}
     \end{tabularx}
 }
 
-\newcommand{\profile} [5] {
-    % \profile
-    %     {Name}
-    %     {Email Address}
-    %     {Two digit Country Code}
-    %     {Phone Number}
-    %     {website, if left blank, it will be omitted}
+% The `\profile` command is used to create the profile section at the top of the resume.
+% It takes five arguments:
+%   #1: Name
+%   #2: Email Address
+%   #3: Two-digit Country Code
+%   #4: Phone Number
+%   #5: Website. If left blank, it will be omitted.
+\newcommand{\profile}[5]{
     \centering
     \begin{tabular}{ccc}
-        \multicolumn{3}{c}{\Huge \scshape {#1}}                                  \\ \\
-        {\href{mailto:#2}{#2}} & {\phonenumber[country={#3},foreign]{#4}} & {#5} \\[5pt]
+        \multicolumn{3}{c}{\Huge \scshape {#1}} \\ \\
+        {\href{mailto:#2}{#2}} & {\phonenumber[country={#3},foreign]{#4}} & \href{#5}{#5} \\[5pt]
     \end{tabular}
 }
 
-\newcommand{\awarditem} [4] {
-    %% Usage of \awarditem
-    % \awarditem
-    %     {Award}
-    %     {Award Provider}
-    %     {Description}
-    %     {Date in '2018-09-17' format}
+% The `\awarditem` command is used to create an award item in the awards section.
+% It takes four arguments:
+%   #1: Award Name
+%   #2: Award Provider
+%   #3: Description
+%   #4: Date in 'YYYY-MM-DD' format
+\newcommand{\awarditem}[4]{
     \setlength\tabcolsep{0pt}
     \begin{tabularx}{\textwidth}{X r}
-        \textbf{#1} & #2             \\
-        #3          & \printdate{#4}
+        \textbf{#1} & #2 \\
+        #3 & \printdate{#4}
     \end{tabularx} \\[5pt]
 }
