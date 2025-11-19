@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: resume.tex
           post_compile: |
@@ -32,6 +32,3 @@ jobs:
           name: Resume
           path: .github/build/${{ secrets.RESUME_FILE_NAME }}
           retention-days: 5
-
-      - name: Clean-up build directory
-        run: sudo rm --verbose --recursive --force .github/build/
