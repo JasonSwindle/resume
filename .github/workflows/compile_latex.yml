@@ -20,7 +20,7 @@ jobs:
           working_directory: latex
           root_file: resume.tex
           post_compile: |
-            mv latex/resume.pdf public/${{ secrets.RESUME_FILE_NAME }}
+            mv -v resume.pdf ../public/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Confirm PDF is there
         run: test -f public/${{ secrets.RESUME_FILE_NAME }}
