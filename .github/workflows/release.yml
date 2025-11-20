@@ -18,9 +18,10 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: latex/resume.tex
+          working_directory: latex
+          root_file: resume.tex
           post_compile: |
-            mv resume.pdf public/${{ secrets.RESUME_FILE_NAME }}
+            mv -v resume.pdf ../public/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Confirm PDF is there
         run: test -f public/${{ secrets.RESUME_FILE_NAME }}
