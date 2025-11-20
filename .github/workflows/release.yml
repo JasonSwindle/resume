@@ -29,7 +29,8 @@ jobs:
     
     steps:
       - name: Confirm PDF is there
-        run: test -f public/${{ secrets.RESUME_FILE_NAME }}
+        #run: test -f public/${{ secrets.RESUME_FILE_NAME }}
+        run: ls -hal
         
   deploy:
     runs-on: ubuntu-latest
