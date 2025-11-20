@@ -6,7 +6,7 @@
 
 # Only allow the following
 !*.tex
-!*.md
+!README.md
 !*.code-workspace
 !*.pws
 !*.yml
