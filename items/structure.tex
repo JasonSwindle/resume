@@ -9,9 +9,7 @@
     multirow,
     enumitem,
     titlesec,
-    xifthen,
-    hyperref
-}
+    xifthen}
 
 \setlist[itemize]{
     topsep=5pt,
@@ -20,20 +18,22 @@
 }
 
 % PDF Stuff
-\usepackage{pslatex}
+\usepackage{mathptmx}
 \pdfmajorversion=2
 \pdfminorversion=0
 \pdfobjcompresslevel=2
 \pdfinclusionerrorlevel=1
 
+
+
+\usepackage{hyperref}
 \hypersetup{
     pdfauthor={\yourname},%
     pdftitle={\yourname - Resume},
     pdfsubject={Resume},
-    pdfkeywords={Resune, AWS, GCP, Google, DevOps, TAM},
+    pdfkeywords={Resume, AWS, GCP, Google, DevOps, TAM},
     pdfproducer={LaTeX},
     pdfcreator={pdfLaTeX},
-    % pdfcreationdate={\today},
     allcolors=black,
     hidelinks
 }
@@ -98,7 +98,7 @@
     %     {Description}
     \setlength{\tabcolsep}{0pt}
     \begin{tabularx}{\textwidth}{ X r }
-        \textbf{#1} & #2 \\
+        \textbf{#1} & \href{https://#2}{#2} \\
         \multicolumn{2}{ p{\textwidth}} {#3}
     \end{tabularx} \\[5pt]
 }
@@ -127,7 +127,7 @@
     \centering
     \begin{tabular}{ccc}
         \multicolumn{3}{c}{\Huge \scshape {#1}}                                  \\ \\
-        {\href{mailto:#2}{#2}} & {\phonenumber[country={#3},foreign]{#4}} & {#5} \\[5pt]
+        {\href{mailto:#2}{#2}} & {\phonenumber[country={#3},foreign]{#4}} & {\href{https://#5}{#5}} \\[5pt]
     \end{tabular}
 }
 
