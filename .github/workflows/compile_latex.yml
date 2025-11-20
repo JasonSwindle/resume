@@ -1,4 +1,4 @@
-name: Build LaTeX document on push
+name: Compile PDF from LaTeX on PUSH of any TEX file
 on:
   push:
     paths:
@@ -17,18 +17,16 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: resume.tex
+          root_file: latex/resume.tex
           post_compile: |
-            mkdir .github/build && \
-            mv resume.pdf .github/build/${{ secrets.RESUME_FILE_NAME }} && \
-            cp index.html .github/build/
+            mv resume.pdf public/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Confirm PDF is there
-        run: test -f .github/build/${{ secrets.RESUME_FILE_NAME }}
+        run: test -f public/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Upload Resume to Workflow artifact
         uses: actions/upload-artifact@v4
         with:
           name: Resume
-          path: .github/build/${{ secrets.RESUME_FILE_NAME }}
+          path: public/
           retention-days: 5

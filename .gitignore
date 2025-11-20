@@ -5,9 +5,13 @@
 !*/
 
 # Only allow the following
-!.tex
-!.md
-!.code-workspace
-!.pws
-!.yml
-!.yaml
+!*.tex
+!*.md
+!*.code-workspace
+!*.pws
+!*.yml
+!*.yaml
+
+# Allow public assets
+!public/index.html
+!public/pdfjs/**

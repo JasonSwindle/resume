@@ -1,4 +1,4 @@
-name: Update resume PDF on published release
+name: Compile PDF from LaTeX on published release
 
 on:
   release:
@@ -18,24 +18,22 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: resume.tex
+          root_file: latex/resume.tex
           post_compile: |
-            mkdir .github/build && \
-            mv resume.pdf .github/build/${{ secrets.RESUME_FILE_NAME }} && \
-            cp index.html .github/build/
+            mv resume.pdf public/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Confirm PDF is there
-        run: test -f .github/build/${{ secrets.RESUME_FILE_NAME }}
+        run: test -f public/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Add to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ${{ secrets.RESUME_FILE_NAME }}
+            public/${{ secrets.RESUME_FILE_NAME }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.6.0
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: .github/build # The folder the action should deploy.
+          folder: public # The folder the action should deploy.
