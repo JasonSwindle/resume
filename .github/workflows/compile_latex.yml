@@ -1,6 +1,8 @@
 name: Compile PDF from LaTeX on PUSH of any TEX file
 on:
   push:
+    branches:
+      - "**"
     paths:
       - "**.tex"
 
