@@ -1,3 +1,7 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
 \usepackage[
     paper=a4paper,
     left=50pt,
@@ -5,34 +9,45 @@
     top=35pt,
     bottom=50pt,
     nomarginpar,
-    nohead]{geometry}
+    nohead
+]{geometry}
 
 \usepackage{
+    xparse,       % For \NewDocumentCommand
     tabularx,
     multirow,
     enumitem,
     titlesec,
     xifthen,
     microtype,
-    lastpage
+    lastpage,
+    mathptmx,     % PDF Stuff
+    phonenumbers, % Phone number formatting
+    fancyhdr,
+    multicol,
+    hyperref
 }
 
-\setlist[itemize]{
-    topsep=5pt,
-    parsep=0pt,
-    itemsep=6pt
-}
+\usepackage[super]{nth} % Ordinal numbers
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[english,printdayoff]{isodate}
 
-% PDF Stuff
-\usepackage{mathptmx}
+\usepackage[
+    noeditdata=true,
+    noproducerdata=false
+]{pdfprivacy}
+
+%----------------------------------------------------------------------------------------
+%	PDF METADATA
+%----------------------------------------------------------------------------------------
+
 \pdfmajorversion=2
 \pdfminorversion=0
 \pdfobjcompresslevel=2
 \pdfinclusionerrorlevel=1
 
-
-
-\usepackage{hyperref}
 \hypersetup{
     pdfauthor={\yourname},%
     pdftitle={\yourname{} - Resume},
@@ -44,109 +59,117 @@
     hidelinks
 }
 
-\usepackage[
-    noeditdata=true,
-    noproducerdata=false]{pdfprivacy}
+%----------------------------------------------------------------------------------------
+%	LIST CONFIGURATION
+%----------------------------------------------------------------------------------------
 
-% Roman numerals
-\newcommand{\RNum} [1] {
-    \uppercase\expandafter{\romannumeral #1\relax}
+\setlist[itemize]{
+    topsep=5pt,
+    parsep=0pt,
+    itemsep=6pt
 }
 
-% Ordinal numbers
-\usepackage[super]{nth}
+%----------------------------------------------------------------------------------------
+%	HEADER & FOOTER
+%----------------------------------------------------------------------------------------
 
-% Phone number formatting
-\usepackage{phonenumbers}
-
-%\usepackage{fullpage}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage[english,printdayoff]{isodate}
-\usepackage{fancyhdr}
-\usepackage{multicol}
-
-\raggedright
-
-% Header Stuff
 \pagestyle{fancy}
 \fancyhf{}
-
-% Fooder Stuff
 \fancyfoot[L]{\yourname}
 \fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
 \renewcommand{\headrulewidth}{0pt}
 
-% Section formatting
+%----------------------------------------------------------------------------------------
+%	SECTION FORMATTING
+%----------------------------------------------------------------------------------------
+
 \titleformat{\section}{\scshape\raggedright}{}{-15pt}{}
 [\vspace{-9pt}\hspace*{-15pt}\titlerule]
 \titlespacing{\section}{0pt}{0pt}{1pt}
 
-\newcommand{\roleheader} [5] {
+\raggedright
+
+%----------------------------------------------------------------------------------------
+%	CUSTOM COMMANDS
+%----------------------------------------------------------------------------------------
+
+% Roman numerals
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+\NewDocumentCommand{\roleheader}{m m m m m}{
     % \roleheader
     %     {Company Name}
     %     {Location}
     %     {Title}
     %     {Start Date in '2018-09-17' format}
     %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
+
     \setlength\tabcolsep{0pt}
     \begin{tabularx}{\textwidth}{X r}
-        \textbf{#1} & #2                                                                             \\
-        #3          & \ifthenelse{\isempty{#5}} {{\printdate{#4} to Present}} {{\daterange{#4}{#5}}}
+        \textbf{#1} & #2 \\
+        #3 & \ifthenelse{\isempty{#5}}{{\printdate{#4} to Present}}{{\daterange{#4}{#5}}}
     \end{tabularx}
 }
 
-\newcommand{\projectitem} [3] {
+
+\NewDocumentCommand{\projectitem}{m m m}{
     % \projectitem
     %     {Project Name}
     %     {URL}
     %     {Description}
-    \setlength{\tabcolsep}{0pt}
-    \begin{tabularx}{\textwidth}{ X r }
+
+    \setlength\tabcolsep{0pt}
+    \begin{tabularx}{\textwidth}{X r}
         \textbf{#1} & #2 \\
-        \multicolumn{2}{ p{\textwidth}} {#3}
-    \end{tabularx} \\[5pt]
+        \multicolumn{2}{p{\textwidth}}{#3}
+    \end{tabularx}\\[5pt]
 }
 
-\newcommand{\educationitem} [5] {
+
+\NewDocumentCommand{\educationitem}{m m m m m}{
     % \educationitem
     %     {University Name}
     %     {Location}
     %     {Degree}
     %     {Start Date in '2018-09-17' format}
     %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
+
     \setlength\tabcolsep{0pt}
     \begin{tabularx}{\textwidth}{X r}
-        \textbf{#1} & #2                                                                             \\
-        #3          & \ifthenelse{\isempty{#5}} {{\printdate{#4} to Present}} {{\daterange{#4}{#5}}}
+        \textbf{#1} & #2 \\
+        #3 & \ifthenelse{\isempty{#5}}{{\printdate{#4} to Present}}{{\daterange{#4}{#5}}}
     \end{tabularx}
 }
 
-\newcommand{\profile} [5] {
-    % \profile
-    %     {Name}
-    %     {Email Address}
-    %     {Two digit Country Code}
-    %     {Phone Number}
-    %     {website, if left blank, it will be omitted}
-    \centering
-    \begin{tabular}{ccc}
-        \multicolumn{3}{c}{\Huge \scshape {#1}}                                                               \\ \\
-        {\href{mailto:#2}{#2}} & \ifthenelse{\isempty{#4}}{}{{\phonenumber[country={#3},foreign]{#4}}} & {#5} \\[5pt]
-    \end{tabular}
-}
 
-\newcommand{\awarditem} [4] {
-    %% Usage of \awarditem
+\NewDocumentCommand{\awarditem}{m m m m}{
     % \awarditem
     %     {Award}
     %     {Award Provider}
     %     {Description}
     %     {Date in '2018-09-17' format}
+
     \setlength\tabcolsep{0pt}
     \begin{tabularx}{\textwidth}{X r}
-        \textbf{#1} & #2             \\
-        #3          & \printdate{#4}
-    \end{tabularx} \\[5pt]
+        \textbf{#1} & #2 \\
+        #3 & \printdate{#4}
+    \end{tabularx}\\[5pt]
+}
+
+
+\NewDocumentCommand{\profile}{m m m m m}{
+    % \profile
+    %     {Name}
+    %     {Email Address}
+    %     {Two digit Country Code}
+    %     {Phone Number}
+    %     {website, if left blank, it will be omitted} 
+
+    \centering
+    \begin{tabular}{ccc}
+        \multicolumn{3}{c}{\Huge \scshape {#1}} \\ \\
+        {\href{mailto:#2}{#2}} &
+        \ifthenelse{\isempty{#4}}{}{{\phonenumber[country={#3},foreign]{#4}}} &
+        {#5} \\[5pt]
+    \end{tabular}
 }
