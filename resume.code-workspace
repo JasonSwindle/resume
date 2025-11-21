@@ -3,5 +3,55 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"extensions": {
+		"recommendations": [
+			"James-Yu.latex-workshop",
+			"streetsidesoftware.code-spell-checker",
+			"foxundermoon.shell-format",
+			"esbenp.prettier-vscode"
+		]
+	},
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.DS_Store": true,
+			"**/*.aux": true,
+			"**/*.fdb_latexmk": true,
+			"**/*.fls": true,
+			"**/*.synctex.gz": true,
+			"**/*.log": true,
+			"**/*.out": true,
+			"**/*.toc": true
+		},
+		"files.watcherExclude": {
+			"**/.git/objects/**": true,
+			"**/.git/subtree-cache/**": true,
+			"**/node_modules/*/**": true
+		},
+		"editor.formatOnSave": true,
+		"latex-workshop.latex.autoBuild.run": "onSave",
+		"latex-workshop.view.pdf.viewer": "tab",
+		"cSpell.language": "en,en-US",
+		"cSpell.words": [
+			"Credly",
+			"DevOps",
+			"GCP",
+			"Kubernetes",
+			"SaltStack",
+			"Swindle",
+			"guillemotright",
+			"isodate",
+			"mathptmx",
+			"microtype",
+			"multirow",
+			"nomarginpar",
+			"pdfprivacy",
+			"phonenumbers",
+			"tabularx",
+			"titlesec",
+			"xifthen",
+			"xparse"
+		]
+	}
 }

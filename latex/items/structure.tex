@@ -2,6 +2,7 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
+% Layout & Formatting
 \usepackage[
     paper=a4paper,
     left=50pt,
@@ -11,29 +12,27 @@
     nomarginpar,
     nohead
 ]{geometry}
+\usepackage{fancyhdr, multicol, titlesec, enumitem, lastpage}
 
-\usepackage{
-    xparse,       % For \NewDocumentCommand
-    tabularx,
-    multirow,
-    enumitem,
-    titlesec,
-    xifthen,
-    microtype,
-    lastpage,
-    mathptmx,     % PDF Stuff
-    phonenumbers, % Phone number formatting
-    fancyhdr,
-    multicol,
-    hyperref
-}
+% Tables
+\usepackage{tabularx, multirow}
 
-\usepackage[super]{nth} % Ordinal numbers
+% Fonts & Encoding
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{mathptmx, microtype}
+
+% Language & Localization
 \usepackage[english]{babel}
 \usepackage[english,printdayoff]{isodate}
+\usepackage[super]{nth}
+\usepackage{phonenumbers}
 
+% Utilities
+\usepackage{xparse, xifthen}
+
+% PDF Metadata & Links
+\usepackage{hyperref}
 \usepackage[
     noeditdata=true,
     noproducerdata=false
@@ -68,6 +67,7 @@
     parsep=0pt,
     itemsep=6pt
 }
+\setlist[itemize,3]{label=\guillemotright}
 
 %----------------------------------------------------------------------------------------
 %	HEADER & FOOTER
@@ -96,12 +96,19 @@
 % Roman numerals
 \newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 
+% Standard Spacing
+\newcommand{\EntryGap}{5pt}
+\newcommand{\SectionGap}{10pt}
+
 % Helper for date ranges
+% #1: Start Date
+% #2: End Date (empty for Present)
 \NewDocumentCommand{\formatdaterange}{m m}{
     \ifthenelse{\isempty{#2}}{{\printdate{#1} to Present}}{{\daterange{#1}{#2}}}
 }
 
 % Helper for consistent table layout
+% #1: Table content
 \NewDocumentCommand{\MakeResumeTable}{m}{
     \setlength\tabcolsep{0pt}
     \begin{tabularx}{\textwidth}{X r}
@@ -109,72 +116,116 @@
     \end{tabularx}
 }
 
+% Helper for standard entry header
+% #1: Primary (Left side, Bold)
+% #2: Secondary (Right side)
+\NewDocumentCommand{\EntryHeader}{m m}{
+    \textbf{#1} & #2 \\
+}
+
+% Generic helper for standard resume entries
+% #1: Primary (Company/Uni/Award)
+% #2: Secondary (Location/Provider)
+% #3: Tertiary (Title/Degree/Desc)
+% #4: Date Text
+\NewDocumentCommand{\RenderEntry}{m m m m}{
+    \MakeResumeTable{
+        \EntryHeader{#1}{#2}
+        #3 & #4
+    }
+}
+
+% Generic helper for dated items (Roles/Education)
+% #1: Name (Company/University)
+% #2: Location
+% #3: Title/Degree
+% #4: Start Date
+% #5: End Date
+\NewDocumentCommand{\DatedItem}{m m m m m}{
+    \RenderEntry{#1}{#2}{#3}{\formatdaterange{#4}{#5}}
+}
+
+% Header for a role/job experience
+% #1: Company Name
+% #2: Location
+% #3: Title
+% #4: Start Date
+% #5: End Date (empty for Present)
 \NewDocumentCommand{\roleheader}{m m m m m}{
-    % \roleheader
-    %     {Company Name}
-    %     {Location}
-    %     {Title}
-    %     {Start Date in '2018-09-17' format}
-    %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
-
-    \MakeResumeTable{
-        \textbf{#1} & #2 \\
-        #3 & \formatdaterange{#4}{#5}
-    }
+    \DatedItem{#1}{#2}{#3}{#4}{#5}
 }
 
-\NewDocumentCommand{\projectitem}{m m m}{
-    % \projectitem
-    %     {Project Name}
-    %     {URL}
-    %     {Description}
-
-    \MakeResumeTable{
-        \textbf{#1} & #2 \\
-        \multicolumn{2}{p{\textwidth}}{#3}
-    }\\[5pt]
-}
-
+% Header for an education entry
+% #1: University Name
+% #2: Location
+% #3: Degree
+% #4: Start Date
+% #5: End Date (empty for Present)
 \NewDocumentCommand{\educationitem}{m m m m m}{
-    % \educationitem
-    %     {University Name}
-    %     {Location}
-    %     {Degree}
-    %     {Start Date in '2018-09-17' format}
-    %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
+    \DatedItem{#1}{#2}{#3}{#4}{#5}
+}
 
+% Item for a project
+% #1: Project Name
+% #2: URL
+% #3: Description
+\NewDocumentCommand{\projectitem}{m m m}{
     \MakeResumeTable{
-        \textbf{#1} & #2 \\
-        #3 & \formatdaterange{#4}{#5}
+        \EntryHeader{#1}{#2}
+        \multicolumn{2}{p{\textwidth}}{#3}
     }
+    \par\addvspace{\EntryGap}
 }
 
+% Item for an award/certification
+% #1: Award Name
+% #2: Award Provider
+% #3: Description/ID
+% #4: Date
 \NewDocumentCommand{\awarditem}{m m m m}{
-    % \awarditem
-    %     {Award}
-    %     {Award Provider}
-    %     {Description}
-    %     {Date in '2018-09-17' format}
-
-    \MakeResumeTable{
-        \textbf{#1} & #2 \\
-        #3 & \printdate{#4}
-    }\\[5pt]
+    \RenderEntry{#1}{#2}{#3}{\printdate{#4}}
+    \par\addvspace{\EntryGap}
 }
 
-\NewDocumentCommand{\profile}{m m m m m}{
-    % \profile
-    %     {Name}
-    %     {Email Address}
-    %     {Two digit Country Code}
-    %     {Phone Number}
-    %     {website, if left blank, it will be omitted} 
+% Item for a reference
+% #1: Quote/Reference Text
+% #2: Author Name
+\NewDocumentCommand{\refitem}{+m m}{
+    \par\noindent
+    \begin{minipage}{\textwidth}
+        \setlength\parindent{2em}
+        \itshape
+        ``#1''
+    \end{minipage}
+    \par
+    \hfill --- \textsc{#2}
+    \par\addvspace{\SectionGap}
+}
 
+% Section for skills
+% #1: Title
+% #2: Content (itemize items)
+\NewDocumentCommand{\skillsection}{m m}{
+    \textbf{#1}
+    \begin{multicols}{2}
+        \begin{itemize}
+            #2
+        \end{itemize}
+    \end{multicols}
+}
+
+% Profile header
+% #1: Name
+% #2: Email Address
+% #3: Country Code
+% #4: Phone Number
+% #5: Website
+\NewDocumentCommand{\profile}{m m m m m}{
     \centering
-    \begin{tabular}{ccc}
-        \multicolumn{3}{c}{\Huge \scshape {#1}}                                 \\ \\
-        {\href{mailto:#2}{#2}}                                                &
-        \ifthenelse{\isempty{#4}}{}{{\phonenumber[country={#3},foreign]{#4}}} &
-        {#5}                                                                    \\[5pt]
+    \begin{tabular}{c}
+        {\Huge \scshape {#1}} \\[\EntryGap]
+        {\href{mailto:#2}{#2}} \quad
+        \ifthenelse{\isempty{#4}}{}{{\phonenumber[country={#3},foreign]{#4}}} \quad
+        {#5}
     \end{tabular}
 }
