@@ -96,6 +96,19 @@
 % Roman numerals
 \newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 
+% Helper for date ranges
+\NewDocumentCommand{\formatdaterange}{m m}{
+    \ifthenelse{\isempty{#2}}{{\printdate{#1} to Present}}{{\daterange{#1}{#2}}}
+}
+
+% Helper for consistent table layout
+\NewDocumentCommand{\MakeResumeTable}{m}{
+    \setlength\tabcolsep{0pt}
+    \begin{tabularx}{\textwidth}{X r}
+        #1
+    \end{tabularx}
+}
+
 \NewDocumentCommand{\roleheader}{m m m m m}{
     % \roleheader
     %     {Company Name}
@@ -104,13 +117,11 @@
     %     {Start Date in '2018-09-17' format}
     %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
 
-    \setlength\tabcolsep{0pt}
-    \begin{tabularx}{\textwidth}{X r}
+    \MakeResumeTable{
         \textbf{#1} & #2 \\
-        #3 & \ifthenelse{\isempty{#5}}{{\printdate{#4} to Present}}{{\daterange{#4}{#5}}}
-    \end{tabularx}
+        #3 & \formatdaterange{#4}{#5}
+    }
 }
-
 
 \NewDocumentCommand{\projectitem}{m m m}{
     % \projectitem
@@ -118,13 +129,11 @@
     %     {URL}
     %     {Description}
 
-    \setlength\tabcolsep{0pt}
-    \begin{tabularx}{\textwidth}{X r}
+    \MakeResumeTable{
         \textbf{#1} & #2 \\
         \multicolumn{2}{p{\textwidth}}{#3}
-    \end{tabularx}\\[5pt]
+    }\\[5pt]
 }
-
 
 \NewDocumentCommand{\educationitem}{m m m m m}{
     % \educationitem
@@ -134,13 +143,11 @@
     %     {Start Date in '2018-09-17' format}
     %     {End Date in '2018-09-17' format, if left blank, it will print 'Present'}
 
-    \setlength\tabcolsep{0pt}
-    \begin{tabularx}{\textwidth}{X r}
+    \MakeResumeTable{
         \textbf{#1} & #2 \\
-        #3 & \ifthenelse{\isempty{#5}}{{\printdate{#4} to Present}}{{\daterange{#4}{#5}}}
-    \end{tabularx}
+        #3 & \formatdaterange{#4}{#5}
+    }
 }
-
 
 \NewDocumentCommand{\awarditem}{m m m m}{
     % \awarditem
@@ -149,13 +156,11 @@
     %     {Description}
     %     {Date in '2018-09-17' format}
 
-    \setlength\tabcolsep{0pt}
-    \begin{tabularx}{\textwidth}{X r}
+    \MakeResumeTable{
         \textbf{#1} & #2 \\
         #3 & \printdate{#4}
-    \end{tabularx}\\[5pt]
+    }\\[5pt]
 }
-
 
 \NewDocumentCommand{\profile}{m m m m m}{
     % \profile
@@ -167,9 +172,9 @@
 
     \centering
     \begin{tabular}{ccc}
-        \multicolumn{3}{c}{\Huge \scshape {#1}} \\ \\
-        {\href{mailto:#2}{#2}} &
+        \multicolumn{3}{c}{\Huge \scshape {#1}}                                 \\ \\
+        {\href{mailto:#2}{#2}}                                                &
         \ifthenelse{\isempty{#4}}{}{{\phonenumber[country={#3},foreign]{#4}}} &
-        {#5} \\[5pt]
+        {#5}                                                                    \\[5pt]
     \end{tabular}
 }
