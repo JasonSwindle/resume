@@ -1,6 +1,6 @@
 {
 	"version": "0.2",
-	"language": "en, en-gb, en-us",
+	"language": "en, en-GB, en-US",
 	"useGitignore": true,
 	"dictionaries": [
 		"aws",
@@ -17,13 +17,14 @@
 	],
 	"words": [
 		"Booneville",
-		"Credly",
-		"SSCE",
-		"STAM",
-		"Swindle",
 		"catppuccin",
+		"Credly",
 		"esbenp",
 		"fdb_latexmk",
-		"foxundermoon"
+		"foxundermoon",
+		"QYLYPVE",
+		"SSCE",
+		"STAM",
+		"Swindle"
 	]
 }
