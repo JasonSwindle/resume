@@ -6,23 +6,34 @@
 	],
 	"extensions": {
 		"recommendations": [
-			"James-Yu.latex-workshop",
-			"streetsidesoftware.code-spell-checker",
+			"catppuccin.catppuccin-vsc-pack",
+			"esbenp.prettier-vscode",
 			"foxundermoon.shell-format",
-			"esbenp.prettier-vscode"
+			"github.vscode-github-actions",
+			"James-Yu.latex-workshop",
+			"streetsidesoftware.code-spell-checker"
 		]
 	},
 	"settings": {
+		"window.autoDetectColorScheme": false,
+		"workbench.colorTheme": "Catppuccin Latte",
+		"workbench.iconTheme": "catppuccin-latte",
+		"catppuccin.customUIColors": {
+			"mocha": {
+				"statusBar.foreground": "accent"
+			}
+		},
+		"terminal.integrated.minimumContrastRatio": 1,
 		"files.exclude": {
-			"**/.git": true,
-			"**/.DS_Store": true,
 			"**/*.aux": true,
 			"**/*.fdb_latexmk": true,
 			"**/*.fls": true,
-			"**/*.synctex.gz": true,
 			"**/*.log": true,
 			"**/*.out": true,
-			"**/*.toc": true
+			"**/*.synctex.gz": true,
+			"**/*.toc": true,
+			"**/.DS_Store": true,
+			"**/.git": true
 		},
 		"files.watcherExclude": {
 			"**/.git/objects/**": true,
@@ -30,6 +41,8 @@
 			"**/node_modules/*/**": true
 		},
 		"editor.formatOnSave": true,
+		"editor.wordWrap": "on",
+		"editor.semanticHighlighting.enabled": true,
 		"latex-workshop.latex.autoBuild.run": "onSave",
 		"latex-workshop.view.pdf.viewer": "tab",
 		"cSpell.language": "en,en-US",
@@ -38,20 +51,19 @@
 			"Credly",
 			"DevOps",
 			"GCP",
+			"Kubernetes",
+			"SSCE",
+			"STAM",
+			"SaltStack",
+			"Swindle",
 			"guillemotright",
 			"isodate",
-			"Kubernetes",
 			"mathptmx",
 			"microtype",
 			"multirow",
 			"nomarginpar",
 			"pdfprivacy",
 			"phonenumbers",
-			"QYLYPVE",
-			"SaltStack",
-			"SSCE",
-			"STAM",
-			"Swindle",
 			"tabularx",
 			"titlesec",
 			"workstream",
