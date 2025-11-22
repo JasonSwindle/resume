@@ -40,14 +40,13 @@ jobs:
               with:
                   working_directory: latex
                   root_file: resume.tex
-                  post_compile: |
-                      mv -v resume.pdf "../public/${{ env.RESUME_FILE_NAME }}"
 
             - name: Optimize PDF
-              run: |
-                  cd public
-                  mv "${{ env.RESUME_FILE_NAME }}" input.pdf
-                  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${{ env.RESUME_FILE_NAME }}" input.pdf
+              uses: jy95/ghostscript-action@v1
+              with:
+                  file: latex/resume.pdf
+                  output: "public/${{ env.RESUME_FILE_NAME }}"
+                  arbitrary-parameters: -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook
 
             - name: Confirm PDF is there
               run: test -f "public/${{ env.RESUME_FILE_NAME }}"

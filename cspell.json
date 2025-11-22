@@ -1,6 +1,6 @@
 {
 	"version": "0.2",
-	"language": "en,en-US",
+	"language": "en, en-gb, en-us",
 	"useGitignore": true,
 	"dictionaries": [
 		"aws",
