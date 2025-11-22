@@ -34,7 +34,7 @@ jobs:
               with:
                   verbose: true
                   root: latex
-                  config: ../cspell.json
+                  config: cspell.json
                   files: "**/*.tex"
 
             - name: Compile LaTeX document
