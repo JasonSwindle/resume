@@ -1,0 +1,29 @@
+{
+	"version": "0.2",
+	"language": "en,en-US",
+	"useGitignore": true,
+	"dictionaries": [
+		"aws",
+		"companies",
+		"docker",
+		"filetypes",
+		"google",
+		"html",
+		"html-symbol-entities",
+		"k8s",
+		"latex",
+		"markdown",
+		"software-terms"
+	],
+	"words": [
+		"Booneville",
+		"Credly",
+		"SSCE",
+		"STAM",
+		"Swindle",
+		"catppuccin",
+		"esbenp",
+		"fdb_latexmk",
+		"foxundermoon"
+	]
+}

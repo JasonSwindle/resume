@@ -5,12 +5,12 @@
 !*/
 
 # Only allow the following
-!*.tex
-!README.md
 !*.code-workspace
-!*.pws
-!*.yml
+!*.tex
 !*.yaml
+!*.yml
+!cspell.json
+!README.md
 
 # Allow public assets
 !public/index.html

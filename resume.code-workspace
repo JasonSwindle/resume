@@ -44,31 +44,6 @@
 		"editor.wordWrap": "on",
 		"editor.semanticHighlighting.enabled": true,
 		"latex-workshop.latex.autoBuild.run": "onSave",
-		"latex-workshop.view.pdf.viewer": "tab",
-		"cSpell.language": "en,en-US",
-		"cSpell.words": [
-			"Booneville",
-			"Credly",
-			"DevOps",
-			"GCP",
-			"Kubernetes",
-			"SSCE",
-			"STAM",
-			"SaltStack",
-			"Swindle",
-			"guillemotright",
-			"isodate",
-			"mathptmx",
-			"microtype",
-			"multirow",
-			"nomarginpar",
-			"pdfprivacy",
-			"phonenumbers",
-			"tabularx",
-			"titlesec",
-			"workstream",
-			"xifthen",
-			"xparse"
-		]
+		"latex-workshop.view.pdf.viewer": "tab"
 	}
 }

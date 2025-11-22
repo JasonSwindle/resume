@@ -17,12 +17,23 @@ permissions:
     pages: write
     id-token: write
 
+env:
+    # If you want to move away from secrets, replace this with your actual filename
+    RESUME_FILE_NAME: Jason_Swindle_Resume.pdf
+
 jobs:
     build:
         runs-on: ubuntu-latest
+        timeout-minutes: 15
         steps:
             - name: Set up Git repository
               uses: actions/checkout@v4
+
+            - name: Check Spelling
+              uses: streetsidesoftware/cspell-action@v6
+              with:
+                  config: cspell.json
+                  files: "latex/**/*.tex"
 
             - name: Compile LaTeX document
               uses: xu-cheng/latex-action@v3
@@ -30,10 +41,16 @@ jobs:
                   working_directory: latex
                   root_file: resume.tex
                   post_compile: |
-                      mv -v resume.pdf ../public/${{ secrets.RESUME_FILE_NAME }}
+                      mv -v resume.pdf "../public/${{ env.RESUME_FILE_NAME }}"
+
+            - name: Optimize PDF
+              run: |
+                  cd public
+                  mv "${{ env.RESUME_FILE_NAME }}" input.pdf
+                  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${{ env.RESUME_FILE_NAME }}" input.pdf
 
             - name: Confirm PDF is there
-              run: test -f public/${{ secrets.RESUME_FILE_NAME }}
+              run: test -f "public/${{ env.RESUME_FILE_NAME }}"
 
             # Always upload the PDF as an artifact for inspection
             - name: Upload Resume artifact
