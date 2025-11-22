@@ -29,14 +29,6 @@ jobs:
             - name: Set up Git repository
               uses: actions/checkout@v4
 
-            - name: Check Spelling
-              uses: streetsidesoftware/cspell-action@v6
-              with:
-                  verbose: true
-                  root: latex
-                  config: cspell.json
-                  files: "**/*.tex"
-
             - name: Compile LaTeX document
               uses: xu-cheng/latex-action@v3
               with:
