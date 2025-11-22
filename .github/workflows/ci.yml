@@ -40,7 +40,7 @@ jobs:
               with:
                   file: latex/resume.pdf
                   output: "public/${{ env.RESUME_FILE_NAME }}"
-                  arbitrary-parameters: -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook
+                  arbitrary-parameters: -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dFastWebView=true
 
             - name: Confirm PDF is there
               run: test -f "public/${{ env.RESUME_FILE_NAME }}"
