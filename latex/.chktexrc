@@ -1,0 +1,19 @@
+## chktex configuration for this repository.
+## Run from this directory: chktex resume.tex (it follows \input automatically).
+
+## Default command-line options.
+##  -n8 mutes "Wrong length of dash may have been used": a false positive
+##  on ISO dates (2018-09-17) and on correct compound-modifier hyphens
+##  (e.g., "4-month", "end-to-end").
+CmdLine
+{
+    -n8
+}
+
+## Commands whose arguments follow on subsequent lines; safe to terminate
+## with a space, so they are exempt from warning 1.
+Silent
+{
+    \profile \roleheader \educationitem \projectitem \awarditem \refitem
+    \raggedright \romannumeral
+}

@@ -9,6 +9,7 @@
 !*.tex
 !*.yaml
 !*.yml
+!.chktexrc
 !cspell.json
 !README.md
 
