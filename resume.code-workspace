@@ -9,9 +9,10 @@
 			"catppuccin.catppuccin-vsc-pack",
 			"esbenp.prettier-vscode",
 			"foxundermoon.shell-format",
-			"github.vscode-github-actions",
-			"James-Yu.latex-workshop",
-			"streetsidesoftware.code-spell-checker"
+		"github.vscode-github-actions",
+		"James-Yu.latex-workshop",
+		"myriad-dreamin.tinymist",
+		"streetsidesoftware.code-spell-checker"
 		]
 	},
 	"settings": {
