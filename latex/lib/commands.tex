@@ -7,6 +7,7 @@
 \newcommand{\companyaws}{Amazon Web Services, Inc.}
 \newcommand{\companyrackspace}{Rackspace, Inc.}
 \newcommand{\companycomptia}{CompTIA, Inc.}
+\newcommand{\companysaltstack}{SaltStack, Inc.}
 
 %----------------------------------------------------------------------------------------
 %	CUSTOM COMMANDS
@@ -18,6 +19,7 @@
 % Standard Spacing
 \newcommand{\EntryGap}{5pt}
 \newcommand{\SectionGap}{10pt}
+\newcommand{\RoleGap}{10.5pt}
 
 % Helper for date ranges
 % #1: Start Date
@@ -86,6 +88,7 @@
     \begin{itemize}
 }{
     \end{itemize}
+    \par\addvspace{\RoleGap}
 }
 
 % Header for an education entry
@@ -96,6 +99,7 @@
 % #5: End Date (empty for Present)
 \NewDocumentCommand{\educationitem}{m m m m m}{
     \DatedItem{#1}{#2}{#3}{#4}{#5}
+    \par\addvspace{\EntryGap}
 }
 
 % Item for a project
@@ -110,14 +114,24 @@
     \par\addvspace{\EntryGap}
 }
 
-% Item for an award/certification
-% #1: Award Name
-% #2: Award Provider
+% Item for a certification (canonical)
+% #1: Certification Name
+% #2: Award/Certification Provider
 % #3: Description/ID
-% #4: Date
-\NewDocumentCommand{\awarditem}{m m m m}{
-    \RenderEntry{#1}{#2}{#3}{\printdate{#4}}
+% #4: Date (YYYY-MM-DD or YYYY)
+\ExplSyntaxOn
+\NewDocumentCommand{\formatcertdate}{m}{
+    \tl_if_in:nnTF {#1} {-} {\printdate{#1}} {#1}
+}
+\ExplSyntaxOff
+\NewDocumentCommand{\certificationitem}{m m m m}{
+    \RenderEntry{#1}{#2}{#3}{\formatcertdate{#4}}
     \par\addvspace{\EntryGap}
+}
+
+% Backward-compatible alias for certification entries
+\NewDocumentCommand{\awarditem}{m m m m}{
+    \certificationitem{#1}{#2}{#3}{#4}
 }
 
 % Item for a reference
@@ -139,12 +153,16 @@
 % #1: Title
 % Body: \item entries
 \NewDocumentEnvironment{skills}{m}{
-    \textbf{#1}
+    \setlength{\multicolsep}{2pt}
+    \setlength{\premulticols}{0pt}
+    \setlength{\postmulticols}{0pt}
+    \noindent\raggedright\textbf{#1}\par
     \begin{multicols}{2}
         \begin{itemize}
 }{
         \end{itemize}
     \end{multicols}
+    \par\addvspace{4pt}
 }
 
 % Profile header
@@ -153,12 +171,14 @@
 % #3: Country Code
 % #4: Phone Number
 % #5: Website
-\NewDocumentCommand{\profile}{m m m m m}{
+% #6: Location
+\NewDocumentCommand{\profile}{m m m m m m}{
     \centering
     \begin{tabular}{c}
         {\Huge \scshape {#1}} \\[\EntryGap]
         {\href{mailto:#2}{#2}} \quad
         \ifthenelse{\isempty{#4}}{}{{\phonenumber[country={#3},foreign]{#4}}} \quad
-        {#5}
+        \ifthenelse{\isempty{#6}}{}{#6} \quad
+        {\href{#5}{#5}}
     \end{tabular}
 }
