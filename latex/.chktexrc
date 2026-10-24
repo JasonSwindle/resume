@@ -14,6 +14,6 @@ CmdLine
 ## with a space, so they are exempt from warning 1.
 Silent
 {
-    \profile \roleheader \educationitem \projectitem \awarditem \refitem
+    \profile \roleheader \educationitem \projectitem \awarditem \certificationitem \refitem
     \raggedright \romannumeral
 }

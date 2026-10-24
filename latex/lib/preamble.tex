@@ -5,10 +5,11 @@
 % Layout & Formatting
 \usepackage[
     paper=a4paper,
-    left=50pt,
-    right=50pt,
-    top=35pt,
+    left=36pt,
+    right=36pt,
+    top=28pt,
     bottom=50pt,
+    footskip=20pt,
     nomarginpar,
     nohead
 ]{geometry}
@@ -17,10 +18,17 @@
 % Tables
 \usepackage{tabularx, multirow}
 
+% Engine Detection
+\usepackage{iftex}
+
 % Fonts & Encoding
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{mathptmx, microtype}
+\ifpdf
+\input{glyphtounicode}
+\pdfgentounicode=1
+\fi
 
 % Language & Localization
 \usepackage[english]{babel}
@@ -33,6 +41,7 @@
 
 % PDF Metadata & Links
 \usepackage{hyperref}
+\ifpdf
 \usepackage[
     noeditdata=true,
     noproducerdata=false
@@ -46,6 +55,7 @@
 \pdfminorversion=0
 \pdfobjcompresslevel=2
 \pdfinclusionerrorlevel=1
+\fi
 
 \hypersetup{
     pdfauthor={\yourname},%
@@ -63,11 +73,14 @@
 %----------------------------------------------------------------------------------------
 
 \setlist[itemize]{
-    topsep=5pt,
+    topsep=1.85pt,
     parsep=0pt,
-    itemsep=6pt
+    itemsep=1.85pt
 }
 \setlist[itemize,3]{label=\guillemotright}
+
+\widowpenalty=10000
+\clubpenalty=10000
 
 %----------------------------------------------------------------------------------------
 %	HEADER & FOOTER
