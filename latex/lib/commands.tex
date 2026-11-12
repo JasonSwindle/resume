@@ -14,7 +14,7 @@
 %----------------------------------------------------------------------------------------
 
 % Roman numerals
-\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\NewDocumentCommand{\RNum}{m}{\uppercase\expandafter{\romannumeral #1\relax}}
 
 % Standard Spacing
 \newcommand{\EntryGap}{5pt}
@@ -25,16 +25,16 @@
 % #1: Start Date
 % #2: End Date (empty for Present)
 \NewDocumentCommand{\formatdaterange}{m m}{
-    \ifthenelse{\isempty{#2}}{{\printdate{#1} to Present}}{{\daterange{#1}{#2}}}
+    \ifblank{#2}{\printdate{#1} to Present}{\daterange{#1}{#2}}
 }
 
 % Helper for consistent table layout
 % #1: Table content
 \NewDocumentCommand{\MakeResumeTable}{m}{
-    \setlength\tabcolsep{0pt}
-    \begin{tabularx}{\textwidth}{X r}
+    \par\noindent
+    \begin{tabularx}{\textwidth}{@{} X @{\hspace{1em}} r @{}}
         #1
-    \end{tabularx}
+    \end{tabularx}\par
 }
 
 % Helper for standard entry header
@@ -85,7 +85,7 @@
 % Body: \item entries (nested itemize allowed)
 \NewDocumentEnvironment{role}{m m m m m}{
     \roleheader{#1}{#2}{#3}{#4}{#5}
-    \begin{itemize}
+    \begin{itemize}[beginpenalty=10000]
 }{
     \end{itemize}
     \par\addvspace{\RoleGap}
@@ -104,12 +104,12 @@
 
 % Item for a project
 % #1: Project Name
-% #2: URL
+% #2: URL (without scheme, e.g., github.com/user/repo)
 % #3: Description
 \NewDocumentCommand{\projectitem}{m m m}{
     \MakeResumeTable{
-        \EntryHeader{#1}{#2}
-        \multicolumn{2}{p{\textwidth}}{#3}
+        \EntryHeader{#1}{\href{https://#2}{#2}}
+        \multicolumn{2}{@{}p{\textwidth}@{}}{#3}
     }
     \par\addvspace{\EntryGap}
 }
@@ -144,7 +144,7 @@
         \itshape
         ``#1''
     \end{minipage}
-    \par
+    \par\nopagebreak[4]
     \hfill --- \textsc{#2}
     \par\addvspace{\SectionGap}
 }
@@ -156,7 +156,7 @@
     \setlength{\multicolsep}{2pt}
     \setlength{\premulticols}{0pt}
     \setlength{\postmulticols}{0pt}
-    \noindent\raggedright\textbf{#1}\par
+    \par\noindent\textbf{#1}\par\nopagebreak[4]
     \begin{multicols}{2}
         \begin{itemize}
 }{
@@ -173,12 +173,13 @@
 % #5: Website
 % #6: Location
 \NewDocumentCommand{\profile}{m m m m m m}{
-    \centering
+    {\centering
     \begin{tabular}{c}
         {\Huge \scshape {#1}} \\[\EntryGap]
-        {\href{mailto:#2}{#2}} \quad
-        \ifthenelse{\isempty{#4}}{}{{\phonenumber[country={#3},foreign]{#4}}} \quad
-        \ifthenelse{\isempty{#6}}{}{#6} \quad
-        {\href{#5}{#5}}
-    \end{tabular}
+        \href{mailto:#2}{#2}%
+        \ifblank{#4}{}{\quad\phonenumber[country={#3},foreign]{#4}}%
+        \ifblank{#6}{}{\quad#6}%
+        \ifblank{#5}{}{\quad\url{#5}}
+    \end{tabular}\par}%
+    \addvspace{4pt}%
 }
